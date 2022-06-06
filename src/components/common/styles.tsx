@@ -11,12 +11,6 @@ export const StyledAppBar = styled(AppBar)`
   background: #ffffff;
 `;
 
-export const MainScrollableBody = styled("div")`
-  flex-grow: 1;
-  overflow-y: scroll;
-  padding: 1rem;
-`;
-
 export const StyledPaper = styled(Paper)`
   display: flex;
   flex-grow: 1;

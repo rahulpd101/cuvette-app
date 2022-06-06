@@ -9,7 +9,7 @@ export const StyledPaper = styled("div")`
   padding-left: 30px;
   padding-top: 20px;
   padding-right: 30px;
-  width: 60%;
+  width: 65%;
 `;
 
 export const Details = styled("div")`
@@ -94,8 +94,8 @@ export const ImageContainer = styled("div")`
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  max-height: 50px;
-  max-width: 50px;
+  min-height: 50px;
+  min-width: 50px;
   background: #ebf0f5;
 `;
 
