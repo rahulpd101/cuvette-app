@@ -8,8 +8,10 @@ export const StyledPaper = styled("div")`
   flex-grow: 1;
   padding-left: 30px;
   padding-top: 20px;
+  padding-right: 30px;
   width: 60%;
 `;
+
 export const Details = styled("div")`
   display: flex;
   align-items: center;
@@ -19,7 +21,6 @@ export const SkillTest = styled("div")`
   display: flex;
   align-items: center;
   padding: 10px 30px;
-  width: 85%;
   height: 15%;
   justify-content: space-between;
   border: 1px solid #ebf0f5;
@@ -61,7 +62,6 @@ export const StatisticsSection = styled("div")`
   margin-top: 30px;
   align-items: center;
   padding: 10px 30px;
-  width: 85%;
   height: 20%;
   border: 1px solid #ebf0f5;
   border-radius: 10px;
@@ -106,7 +106,6 @@ export const ComparisonGraph = styled("div")`
   flex-direction: column;
   margin-top: 30px;
   padding: 10px 30px;
-  width: 85%;
   height: 80%;
   border: 1px solid black;
   border-radius: 10px;
