@@ -36,7 +36,12 @@ const Mid = () => {
       </SkillTest>
       <StatisticsSection>
         <Content>
-          <Typography color="#1E272E" variant="h5" marginBottom="20px">
+          <Typography
+            color="#1E272E"
+            variant="h5"
+            marginTop="20px"
+            marginBottom="20px"
+          >
             Quick Statistics
           </Typography>
           <StatsRow>

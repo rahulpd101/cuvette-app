@@ -1,12 +1,13 @@
-import React from 'react'
-import { StyledPaper } from './styles'
+import React from "react";
+import { StyledPaper } from "./styles";
 
 const Aside = () => {
-    return (
-        <StyledPaper>
-            Aside Section
-        </StyledPaper>
-    )
-}
+  return (
+    <StyledPaper>
+      {/* <SyllabusAnalysis></SyllabusAnalysis> */}
+      {/* <QuestionAnalysis></QuestionAnalysis> */}
+    </StyledPaper>
+  );
+};
 
-export default Aside
+export default Aside;

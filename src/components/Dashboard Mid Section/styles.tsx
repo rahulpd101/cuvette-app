@@ -5,7 +5,7 @@ export const StyledPaper = styled("div")`
   color: #566474;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+
   padding-left: 30px;
   padding-top: 20px;
   padding-right: 30px;
@@ -21,7 +21,6 @@ export const SkillTest = styled("div")`
   display: flex;
   align-items: center;
   padding: 10px 30px;
-  height: 15%;
   justify-content: space-between;
   border: 1px solid #ebf0f5;
   border-radius: 10px;
@@ -62,7 +61,6 @@ export const StatisticsSection = styled("div")`
   margin-top: 30px;
   align-items: center;
   padding: 10px 30px;
-  height: 20%;
   border: 1px solid #ebf0f5;
   border-radius: 10px;
 `;
@@ -96,8 +94,8 @@ export const ImageContainer = styled("div")`
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  height: 50px;
-  width: 50px;
+  max-height: 50px;
+  max-width: 50px;
   background: #ebf0f5;
 `;
 
@@ -106,7 +104,7 @@ export const ComparisonGraph = styled("div")`
   flex-direction: column;
   margin-top: 30px;
   padding: 10px 30px;
-  height: 80%;
+
   border: 1px solid black;
   border-radius: 10px;
 `;
@@ -114,7 +112,7 @@ export const ComparisonGraph = styled("div")`
 export const Graph = styled("div")`
   display: flex;
   height: 40%;
-  width: 85%;
+  max-width: 85%;
   border: 1px solid #ebf0f5;
   border-radius: 10px;
 `;
