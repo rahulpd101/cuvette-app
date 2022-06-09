@@ -3,8 +3,6 @@ import { styled } from "@mui/system";
 export const FullBodyContainer = styled("div")`
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  width: 100vw;
 `;
 
 export const StyledAppBar = styled(AppBar)`
@@ -13,9 +11,6 @@ export const StyledAppBar = styled(AppBar)`
 
 export const StyledPaper = styled(Paper)`
   display: flex;
-  flex-grow: 1;
-  width: 100vw;
-  overflow-y: scroll;
 `;
 
 export const PaddedContainer = styled("div")`

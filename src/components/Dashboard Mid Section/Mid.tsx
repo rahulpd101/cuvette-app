@@ -14,7 +14,14 @@ import {
   ComparisonGraph,
   Graph,
 } from "./styles";
-import { Typography } from "@mui/material";
+import { Dialog, Typography } from "@mui/material";
+import {
+  VictoryAxis,
+  VictoryChart,
+  VictoryLine,
+  VictoryScatter,
+} from "victory";
+import MuiDialog from "../MuiDialog";
 
 const Mid = () => {
   return (
@@ -32,7 +39,8 @@ const Mid = () => {
             </Typography>
           </SkillTestDetails>
         </Details>
-        <UpdateButton variant="contained">Update</UpdateButton>
+
+        <MuiDialog />
       </SkillTest>
       <StatisticsSection>
         <Content>
@@ -60,7 +68,7 @@ const Mid = () => {
             </StatsItem>
             <StatsItem>
               <ImageContainer>
-                <img src="percentile.png" alt="Rank image" />
+                <img src="percentile.png" alt="percentile image" />
               </ImageContainer>
               <StatsInfo>
                 <Typography fontWeight="700" fontSize="1.8rem" color="#1E272E">
@@ -73,7 +81,7 @@ const Mid = () => {
             </StatsItem>
             <StatsItem>
               <ImageContainer>
-                <img src="checkMark.png" alt="Rank image" />
+                <img src="checkMark.png" alt="score image" />
               </ImageContainer>
               <StatsInfo>
                 <Typography fontWeight="700" fontSize="1.8rem" color="#1E272E">
@@ -105,7 +113,66 @@ const Mid = () => {
           You scored 37% percentile which is lower than the average percentile
           72% of all the engineers who took this assessment
         </Typography>
-        <Graph></Graph>
+        <Graph>
+          <VictoryChart>
+            <VictoryLine
+              interpolation="natural"
+              data={[
+                { x: 5, y: 100 },
+                { x: 33, y: 315 },
+                { x: 55, y: 500 }, // this will change
+                { x: 65, y: 254 },
+                { x: 84, y: 454 },
+                { x: 96, y: 50 },
+              ]}
+            />
+            <VictoryAxis dependentAxis crossAxis domain={[0, 1000]} />
+            <VictoryAxis
+              crossAxis
+              // width={400}
+              // height={400}
+              domain={[0, 100]}
+              // theme={VictoryTheme.material}
+              // offsetY={200}
+              // standalone={false}
+              tickFormat={(t) => `${Math.round(t)}%`}
+            />
+            <VictoryScatter
+              style={{ data: { fill: "#c43a31" } }}
+              size={9}
+              labels={() => null}
+              events={[
+                {
+                  target: "data",
+                  eventHandlers: {
+                    onClick: () => {
+                      return [
+                        {
+                          target: "data",
+                          mutation: (props) => {
+                            const fill = props.style && props.style.fill;
+                            return fill === "black"
+                              ? null
+                              : { style: { fill: "black" } };
+                          },
+                        },
+                        {
+                          target: "labels",
+                          mutation: (props) => {
+                            return props.text === "clicked"
+                              ? null
+                              : { text: "clicked" };
+                          },
+                        },
+                      ];
+                    },
+                  },
+                },
+              ]}
+              data={[{ x: 55, y: 500 }]}
+            />
+          </VictoryChart>
+        </Graph>
       </ComparisonGraph>
     </StyledPaper>
   );

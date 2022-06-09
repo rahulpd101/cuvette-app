@@ -111,7 +111,7 @@ export const ComparisonGraph = styled("div")`
 
 export const Graph = styled("div")`
   display: flex;
-  height: 40%;
+  height: 80%;
   max-width: 85%;
   border: 1px solid #ebf0f5;
   border-radius: 10px;

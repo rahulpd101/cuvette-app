@@ -2,5 +2,5 @@ import { styled } from "@mui/system";
 
 export const StyledPaper = styled("div")`
   display: flex;
-  flex-grow: 1;
+  padding-bottom: 20px;
 `;

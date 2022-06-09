@@ -1,10 +1,27 @@
-import React from "react";
-import { ProgressBar, StyledPaper, SyllabusAnalysis } from "./styles";
+import React, { useState } from "react";
+import { useEffect } from "react";
+import {
+  ProgressBar,
+  StyledPaper,
+  SyllabusAnalysis,
+  RowFlexbox,
+  ColumnFlexbox,
+  WeightedFont,
+} from "./styles";
 import { Box, Typography } from "@mui/material";
-import { LinearProgress, LinearProgressProps } from "@mui/material";
+import {
+  LinearProgress,
+  LinearProgressProps,
+  LinearProgressPropsColorOverrides,
+} from "@mui/material";
+import { VictoryPie } from "victory";
+import { data } from "./data";
 
 const LinearProgressWithLabel = (
-  props: LinearProgressProps & { value: number }
+  props: LinearProgressProps & {
+    value: number;
+    color: LinearProgressPropsColorOverrides;
+  }
 ) => {
   return (
     <Box
@@ -23,9 +40,7 @@ const LinearProgressWithLabel = (
       </Box>
 
       <Box sx={{ minWidth: 35 }}>
-        <Typography variant="body2" color={`${props.color}`}>
-          {`${props.value}%`}
-        </Typography>
+        <Typography variant="body2">{`${props.value}%`}</Typography>
       </Box>
     </Box>
   );
@@ -38,40 +53,79 @@ const Aside = () => {
         <Typography fontSize="1.2rem" color="#1E272E">
           Syllabus wise Analysis
         </Typography>
-        <ProgressBar>
-          <Typography fontSize="1rem" color="#566474" pr="40%">
-            HTML Tools, Forms, History
-          </Typography>
-          <Box sx={{ width: "100%" }}>
-            <LinearProgressWithLabel value={80} />
-          </Box>
-        </ProgressBar>
-        <ProgressBar>
-          <Typography fontSize="1rem" color="#566474" pr="40%">
-            Tags & References in HTML
-          </Typography>
-          <Box sx={{ width: "100%" }}>
-            <LinearProgressWithLabel value={60} />
-          </Box>
-        </ProgressBar>
-        <ProgressBar>
-          <Typography fontSize="1rem" color="#566474" pr="40%">
-            Tables & CSS Basics
-          </Typography>
-          <Box sx={{ width: "100%" }}>
-            <LinearProgressWithLabel value={24} />
-          </Box>
-        </ProgressBar>
-        <ProgressBar>
-          <Typography fontSize="1rem" color="#566474" pr="40%">
-            Tables & CSS Basics
-          </Typography>
-          <Box sx={{ width: "100%" }}>
-            <LinearProgressWithLabel value={96} />
-          </Box>
-        </ProgressBar>
+        <div
+          style={{
+            display: "flex",
+            height: "100%",
+            flexDirection: "column",
+            justifyContent: "space-between",
+          }}
+        >
+          {data.map((item) => {
+            return (
+              <ProgressBar>
+                <Typography fontSize="1rem" color="#566474" pr="40%">
+                  {item.name}
+                </Typography>
+                <Box sx={{ width: "100%" }}>
+                  <LinearProgressWithLabel
+                    value={item.value}
+                    color={item.color}
+                  />
+                </Box>
+              </ProgressBar>
+            );
+          })}
+        </div>
       </SyllabusAnalysis>
-      <SyllabusAnalysis></SyllabusAnalysis>
+      <SyllabusAnalysis>
+        <RowFlexbox sx={{ justifyContent: "space-between" }}>
+          <Typography variant="body2" color="#1E272E">
+            Question Analysis
+          </Typography>
+          <Typography variant="body2" color="#438AF6">
+            07/15
+          </Typography>
+        </RowFlexbox>
+        <Typography variant="subtitle2" color="#566474" pt="20px">
+          <WeightedFont>You scored 7 question correct out of 15.</WeightedFont>
+          However it still needs some improvements
+        </Typography>
+        <ColumnFlexbox
+          sx={{
+            alignItems: "center",
+            height: "60%",
+            width: "60%",
+            marginLeft: "auto",
+            marginRight: "auto",
+            marginTop: "30px",
+          }}
+        >
+          <svg viewBox="0 0 400 400" width="100%" height="100%">
+            <VictoryPie
+              standalone={false}
+              animate={{ duration: 2000 }}
+              width={400}
+              height={400}
+              data={[
+                { x: 1, y: 75 },
+                { x: 2, y: 100 - 75 },
+              ]}
+              innerRadius={120}
+              cornerRadius={-25}
+              labels={() => null}
+              style={{
+                data: {
+                  fill: ({ datum }) => {
+                    const color = "blue";
+                    return datum.x === 1 ? color : "#add8e6";
+                  },
+                },
+              }}
+            />
+          </svg>
+        </ColumnFlexbox>
+      </SyllabusAnalysis>
     </StyledPaper>
   );
 };
