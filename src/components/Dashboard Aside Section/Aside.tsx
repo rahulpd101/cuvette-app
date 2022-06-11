@@ -21,7 +21,7 @@ import UserContext from "../UserContext";
 const LinearProgressWithLabel = (
   props: LinearProgressProps & {
     value: number;
-    color: LinearProgressPropsColorOverrides;
+    color: string;
   }
 ) => {
   return (
@@ -70,10 +70,7 @@ const Aside = () => {
                   {item.name}
                 </Typography>
                 <Box sx={{ width: "100%" }}>
-                  <LinearProgressWithLabel
-                    value={item.value}
-                    color={item.color}
-                  />
+                  <LinearProgressWithLabel value={item.value} color="primary" />
                 </Box>
               </ProgressBar>
             );
