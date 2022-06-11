@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import {
   SkillTest,
   SkillTestDetails,
   StyledPaper,
-  UpdateButton,
   Details,
   StatisticsSection,
   Content,
@@ -14,7 +13,7 @@ import {
   ComparisonGraph,
   Graph,
 } from "./styles";
-import { Dialog, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import {
   VictoryAxis,
   VictoryChart,
@@ -22,8 +21,23 @@ import {
   VictoryScatter,
 } from "victory";
 import MuiDialog from "../MuiDialog";
+import UserContext from "../UserContext";
+
+const INIT_VALUES = {
+  score: "07",
+  rank: "12",
+  percentile: "37",
+};
+
+export type ValueType = {
+  rank: string;
+  percentile: string;
+  score: string;
+};
 
 const Mid = () => {
+  const { val, handleChangeVals } = useContext(UserContext);
+
   return (
     <StyledPaper>
       <p>Skill Test</p>
@@ -35,12 +49,12 @@ const Mid = () => {
               HyperText Markup Language
             </Typography>
             <Typography color="#566474" variant="h6">
-              Questions: 08 | Duration: 15mins | Submitted on 5 June 2021
+              Questions: 08 | Duration: 15mins | Submitted on 10 June 2021
             </Typography>
           </SkillTestDetails>
         </Details>
 
-        <MuiDialog />
+        <MuiDialog handleChangeVals={handleChangeVals} />
       </SkillTest>
       <StatisticsSection>
         <Content>
@@ -59,7 +73,7 @@ const Mid = () => {
               </ImageContainer>
               <StatsInfo>
                 <Typography fontWeight="700" fontSize="1.8rem" color="#1E272E">
-                  12,890
+                  {val.rank}
                 </Typography>
                 <Typography fontSize="1rem" color="#9EAAB7">
                   YOUR RANK
@@ -72,7 +86,7 @@ const Mid = () => {
               </ImageContainer>
               <StatsInfo>
                 <Typography fontWeight="700" fontSize="1.8rem" color="#1E272E">
-                  37%
+                  {val.percentile}%
                 </Typography>
                 <Typography fontSize="1rem" color="#9EAAB7">
                   PERCENTILE
@@ -85,7 +99,7 @@ const Mid = () => {
               </ImageContainer>
               <StatsInfo>
                 <Typography fontWeight="700" fontSize="1.8rem" color="#1E272E">
-                  07/15
+                  {val.score}/15
                 </Typography>
                 <Typography fontSize="1rem" color="#9EAAB7">
                   CORRECT ANSWERS
@@ -110,8 +124,9 @@ const Mid = () => {
           color="#566474"
           marginBottom="20px"
         >
-          You scored 37% percentile which is lower than the average percentile
-          72% of all the engineers who took this assessment
+          You scored {val.percentile}% percentile which is{" "}
+          {Number(val.percentile) > 72 ? "higher" : "lower"} than the average
+          percentile 72% of all the engineers who took this assessment
         </Typography>
         <Graph>
           <VictoryChart>
@@ -120,7 +135,7 @@ const Mid = () => {
               data={[
                 { x: 5, y: 100 },
                 { x: 33, y: 315 },
-                { x: 55, y: 500 }, // this will change
+                { x: Number(val.percentile), y: 500 }, // this will change
                 { x: 65, y: 254 },
                 { x: 84, y: 454 },
                 { x: 96, y: 50 },
@@ -145,23 +160,49 @@ const Mid = () => {
                 {
                   target: "data",
                   eventHandlers: {
-                    onClick: () => {
+                    onMouseOver: () => {
                       return [
                         {
                           target: "data",
                           mutation: (props) => {
                             const fill = props.style && props.style.fill;
-                            return fill === "black"
+                            return fill === "blue"
                               ? null
-                              : { style: { fill: "black" } };
+                              : { style: { fill: "blue" } };
                           },
                         },
                         {
                           target: "labels",
                           mutation: (props) => {
-                            return props.text === "clicked"
+                            return props.text === "hovered"
                               ? null
-                              : { text: "clicked" };
+                              : { text: "hovered" };
+                          },
+                        },
+                      ];
+                    },
+                  },
+                },
+                {
+                  target: "data",
+                  eventHandlers: {
+                    onMouseOut: () => {
+                      return [
+                        {
+                          target: "data",
+                          mutation: (props) => {
+                            const fill = props.style && props.style.fill;
+                            return fill === "blue"
+                              ? null
+                              : { style: { fill: "blue" } };
+                          },
+                        },
+                        {
+                          target: "labels",
+                          mutation: (props) => {
+                            return props.text === "hovered"
+                              ? null
+                              : { text: "hovered" };
                           },
                         },
                       ];
@@ -169,7 +210,7 @@ const Mid = () => {
                   },
                 },
               ]}
-              data={[{ x: 55, y: 500 }]}
+              data={[{ x: Number(val.percentile), y: 500 }]}
             />
           </VictoryChart>
         </Graph>

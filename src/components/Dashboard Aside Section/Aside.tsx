@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useContext } from "react";
+
 import {
   ProgressBar,
   StyledPaper,
@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 import { VictoryPie } from "victory";
 import { data } from "./data";
+import UserContext from "../UserContext";
 
 const LinearProgressWithLabel = (
   props: LinearProgressProps & {
@@ -47,6 +48,7 @@ const LinearProgressWithLabel = (
 };
 
 const Aside = () => {
+  const { val } = useContext(UserContext);
   return (
     <StyledPaper>
       <SyllabusAnalysis>
@@ -88,7 +90,9 @@ const Aside = () => {
           </Typography>
         </RowFlexbox>
         <Typography variant="subtitle2" color="#566474" pt="20px">
-          <WeightedFont>You scored 7 question correct out of 15.</WeightedFont>
+          <WeightedFont>
+            You scored {val.score} question correct out of 15.
+          </WeightedFont>
           However it still needs some improvements
         </Typography>
         <ColumnFlexbox
@@ -108,8 +112,8 @@ const Aside = () => {
               width={400}
               height={400}
               data={[
-                { x: 1, y: 75 },
-                { x: 2, y: 100 - 75 },
+                { x: 1, y: Number(val.percentile) },
+                { x: 2, y: 100 - Number(val.percentile) },
               ]}
               innerRadius={120}
               cornerRadius={-25}

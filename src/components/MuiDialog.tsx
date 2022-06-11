@@ -1,5 +1,5 @@
-import React, { useRef } from "react";
-import { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
+
 import {
   Button,
   Dialog,
@@ -9,12 +9,43 @@ import {
   DialogActions,
   TextField,
 } from "@mui/material";
+import { ValueType } from "./Dashboard Mid Section/Mid";
 
-const MuiDialog = () => {
+const MuiDialog = ({
+  handleChangeVals,
+}: {
+  handleChangeVals: (val: ValueType) => void;
+}) => {
   const [open, setOpen] = useState(false);
-  const rankRef = useRef();
-  const percentileRef = useRef();
-  const scoreRef = useRef();
+  const [rank, setRank] = useState("");
+  const [percentile, setPercentile] = useState("");
+  const [score, setScore] = useState("");
+
+  const handleChange = () => {
+    handleChangeVals({ score, rank, percentile });
+    setRank("");
+    setPercentile("");
+    setScore("");
+    setOpen(false);
+  };
+
+  const inputRank = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setRank(e.target.value);
+  };
+
+  const inputPercentile = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setPercentile(e.target.value);
+  };
+
+  const inputScore = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setScore(e.target.value);
+  };
 
   return (
     <>
@@ -50,7 +81,8 @@ const MuiDialog = () => {
             label="Rank"
             variant="outlined"
             size="small"
-            ref={rankRef}
+            value={rank}
+            onChange={inputRank}
           />
         </DialogContent>
 
@@ -72,6 +104,8 @@ const MuiDialog = () => {
             label="Percentile"
             variant="outlined"
             size="small"
+            value={percentile}
+            onChange={inputPercentile}
           />
         </DialogContent>
 
@@ -98,13 +132,15 @@ const MuiDialog = () => {
             label="Current score"
             variant="outlined"
             size="small"
+            value={score}
+            onChange={inputScore}
           />
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={() => setOpen(false)}>
             Cancel
           </Button>
-          <Button>Submit</Button>
+          <Button onClick={handleChange}>Save</Button>
         </DialogActions>
       </Dialog>
     </>

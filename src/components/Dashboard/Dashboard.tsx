@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import Aside from "../Dashboard Aside Section/Aside";
-import Mid from "../Dashboard Mid Section/Mid";
+import Mid, { ValueType } from "../Dashboard Mid Section/Mid";
 import { StyledPaper } from "./styles";
+import { UserProvider } from "../UserContext";
+
 const Dashboard = () => {
   return (
-    <StyledPaper>
-      <Mid />
-      <Aside />
-    </StyledPaper>
+    <UserProvider>
+      <StyledPaper>
+        <Mid />
+        <Aside />
+      </StyledPaper>
+    </UserProvider>
   );
 };
 
