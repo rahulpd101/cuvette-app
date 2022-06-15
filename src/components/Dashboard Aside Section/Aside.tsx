@@ -9,11 +9,7 @@ import {
   WeightedFont,
 } from "./styles";
 import { Box, Typography } from "@mui/material";
-import {
-  LinearProgress,
-  LinearProgressProps,
-  LinearProgressPropsColorOverrides,
-} from "@mui/material";
+import { LinearProgress, LinearProgressProps } from "@mui/material";
 import { VictoryPie } from "victory";
 import { data } from "./data";
 import UserContext from "../UserContext";
